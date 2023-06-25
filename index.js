@@ -1,3 +1,5 @@
+/* Props and Attributes */
+
 var cssProps = {
   pause: [
     '-webkit-animation: none !important;',
@@ -35,7 +37,7 @@ var cssProps = {
   ].join(''),
   selectors: ['* + *,', ':before,', ':after,', 'body :not(g)'].join(''),
   svg: ['fill: #222;', 'position: relative;', 'top: 3px;'].join(''),
-};
+}; // CSS properties to be injected into the page
 
 var data = {
   backgroundImage: 'data-background-image',
@@ -45,7 +47,7 @@ var data = {
   brochure: {
     videoSrc: 'data-video-src',
   },
-};
+}; // Data attributes
 
 var selectors = {
   iframeElem: 'iframe',
@@ -83,7 +85,7 @@ var selectors = {
     section: '.section',
     btns: '[role="button"]',
   },
-};
+}; // Selectors used in the script
 
 var strings = {
   clickIconRequest: 'iconClick',
@@ -94,28 +96,29 @@ var strings = {
     pause: 'NOISA ACTIVATED',
   },
   setIconRequest: 'setIcon',
-};
+}; // Strings used in the script
 
 var getSelector = (cssRule) => {
   return cssRule.cssText.substr(0, cssRule.cssText.indexOf('{')).trim();
-};
+}; // Get the selector from a CSS rule object (e.g. CSSStyleRule)
 
 var hasAnimatedImage = (cssRule) => {
   return cssRule.cssText.indexOf(strings.gifExtension) > -1 ||
     cssRule.cssText.indexOf(strings.weebpExtension) > -1
     ? true
     : false;
-};
+}; // Check if a CSS rule object has an animated image
 
+/* main functions */
 var removeBackGroundImage = (selector, document, window) => {
   try {
-    var backgroundImageElements = document.querySelectorAll(selector);
+    var backgroundImageElements = document.querySelectorAll(selector); 
 
     for (var element of Array.from(backgroundImageElements)) {
       if (!element.hasAttribute(data.backgroundImage)) {
-        element.setAttribute(
+        element.setAttribute( 
           data.backgroundImage,
-          window.getComputedStyle(element).backgroundImage
+          window.getComputedStyle(element).backgroundImage // Store the background image in a data attribute
         );
         element.style.backgroundImage = 'none';
       }
@@ -126,16 +129,16 @@ var removeBackGroundImage = (selector, document, window) => {
 var backgroundImage = {
   resume(document) {
     var backgroundImageElements = document.querySelectorAll(
-      `[${data.backgroundImage}]`
+      `[${data.backgroundImage}]` // Get all elements with the data attribute
     );
 
     for (var backgroundImage of Array.from(backgroundImageElements)) {
       backgroundImage.style.backgroundImage = backgroundImage.getAttribute(
-        data.backgroundImage
+        data.backgroundImage // Restore the background image by getting the attribute value
       );
       backgroundImage.removeAttribute(data.backgroundImage);
     }
-  },
+  }, // Resume the animation by restoring the background image
   pause(document, window) {
     var styleSheets = document.styleSheets;
     let cssRules = null;
@@ -143,29 +146,29 @@ var backgroundImage = {
     for (var styleSheet of Array.from(styleSheets)) {
       try {
         if (styleSheet.cssRules) {
-          cssRules = styleSheet.cssRules;
+          cssRules = styleSheet.cssRules; // Get the CSS rules from the stylesheet
 
           for (var cssRule of Array.from(cssRules)) {
-            if (hasAnimatedImage(cssRule)) {
+            if (hasAnimatedImage(cssRule)) { // Check if the CSS rule has an animated image
               if (cssRule.type === 1) {
-                removeBackGroundImage(getSelector(cssRule), document, window);
+                removeBackGroundImage(getSelector(cssRule), document, window); // Remove the background image from the selector
               } else if (cssRule.type === 4) {
                 for (var cssRule of Array.from(cssRule.cssRules)) {
-                  removeBackGroundImage(getSelector(cssRule), document, window);
+                  removeBackGroundImage(getSelector(cssRule), document, window); 
                 }
               }
             }
           }
-        }
+        } 
       } catch (e) {}
     }
-  },
+  }, // Pause the animation by removing the background image
 };
 
 var css = {
   resume(document) {
     if (document.getElementById(selectors.styleElem) != null) {
-      document.body.removeChild(document.getElementById(selectors.styleElem));
+      document.body.removeChild(document.getElementById(selectors.styleElem)); // Remove the CSS properties from the page
     }
   },
   pause(document) {
@@ -176,11 +179,11 @@ var css = {
     var styleElem = document.createElement('style');
 
     styleElem.id = selectors.styleElem;
-    styleElem.textContent = `${cssProps.selectors}{${cssProps.pause}}`;
+    styleElem.textContent = `${cssProps.selectors}{${cssProps.pause}}`; // Inject the CSS properties into the page
 
     document.body.appendChild(styleElem);
   },
-};
+}; // CSS animation functions to resume and pause
 
 var image = {
   resume(document) {
@@ -207,57 +210,57 @@ var image = {
 
     for (var thisImage of Array.from(images)) {
       if (document.querySelector(`[${data.image}="${i}"]`) != null) {
-        continue;
+        continue; // Skip if the image is already paused
       }
 
-      imageCanvas = document.createElement('canvas');
-      imagePlaceholder = document.createElement('div');
-      imageWidth = thisImage.width || window.getComputedStyle(thisImage).width;
+      imageCanvas = document.createElement('canvas'); // Create a canvas element to draw the image on
+      imagePlaceholder = document.createElement('div'); // Create a placeholder element to replace the image with
+      imageWidth = thisImage.width || window.getComputedStyle(thisImage).width; // Get the image width
       imageHeight =
         thisImage.height || window.getComputedStyle(thisImage).height;
 
       if (thisImage.id) {
-        imagePlaceholder.id = thisImage.id;
+        imagePlaceholder.id = thisImage.id; // Set the id of the placeholder to the id of the image
       }
 
       if (thisImage.getAttribute('class') != null) {
-        imagePlaceholder.setAttribute('class', thisImage.getAttribute('class'));
+        imagePlaceholder.setAttribute('class', thisImage.getAttribute('class')); // Set the class of the placeholder to the class of the image
       }
 
       if (thisImage.getAttribute('alt') != null) {
-        imagePlaceholder.setAttribute('alt', thisImage.getAttribute('alt'));
+        imagePlaceholder.setAttribute('alt', thisImage.getAttribute('alt')); // Set the alt of the placeholder to the alt of the image
       }
 
-      imagePlaceholder.setAttribute(data.image, i);
-      imagePlaceholder.setAttribute('role', 'img');
+      imagePlaceholder.setAttribute(data.image, i); // Set the data attribute of the placeholder to the index of the image
+      imagePlaceholder.setAttribute('role', 'img'); // Set the role of the placeholder to img
 
-      imageCanvas.width = imageWidth;
-      imageCanvas.height = imageHeight;
+      imageCanvas.width = imageWidth; // Set the width and height of the canvas to the width and height of the image
+      imageCanvas.height = imageHeight; // This is required to prevent the image from being stretched
       imageCanvas
-        .getContext('2d')
-        .drawImage(thisImage, 0, 0, imageWidth, imageHeight);
+        .getContext('2d') 
+        .drawImage(thisImage, 0, 0, imageWidth, imageHeight); // Draw the image on the canvas to prevent it from being animated 
 
-      thisImage.parentNode.insertBefore(
-        imagePlaceholder,
-        thisImage.nextSibling
-      );
-      imagePlaceholder.appendChild(imageCanvas);
+      thisImage.parentNode.insertBefore( // Insert the placeholder before the image
+        imagePlaceholder, // The placeholder
+        thisImage.nextSibling // The image  
+      ); 
+      imagePlaceholder.appendChild(imageCanvas); // Append the canvas to the placeholder
 
-      thisImage.style.display = 'none';
-      thisImage.setAttribute('aria-hidden', true);
+      thisImage.style.display = 'none';  // Hide the image
+      thisImage.setAttribute('aria-hidden', true);  // Hide the image from screen readers
 
       i++;
     }
   },
-};
+}; // Image attributes and functions to inject upon
 
 var svg = {
   resume(document) {
-    var svgElements = document.querySelectorAll(selectors.svgAnimateElem);
+    var svgElements = document.querySelectorAll(selectors.svgAnimateElem); // Get all the SVG elements
 
     for (var svg of Array.from(svgElements)) {
       if (svg.getAttribute(data.svg)) {
-        svg.setAttribute(selectors.svgDurationAttr, svg.getAttribute(data.svg));
+        svg.setAttribute(selectors.svgDurationAttr, svg.getAttribute(data.svg)); 
         svg.removeAttribute(data.svg);
       }
     }
@@ -266,15 +269,15 @@ var svg = {
     var svgElements = document.querySelectorAll(selectors.svgAnimateElem);
 
     for (var svg of Array.from(svgElements)) {
-      svg.setAttribute(data.svg, svg.getAttribute(selectors.svgDurationAttr));
-      svg.removeAttribute(selectors.svgDurationAttr);
+      svg.setAttribute(data.svg, svg.getAttribute(selectors.svgDurationAttr)); // Set the duration attribute to the data attribute
+      svg.removeAttribute(selectors.svgDurationAttr); 
     }
   },
-};
+}; // SVG animation functions to resume and pause
 
 var playing = (e) => {
   e.target.setAttribute(data.video, true);
-};
+}; // Set the video to playing when it starts
 
 var video = {
   resume(document) {
@@ -282,7 +285,7 @@ var video = {
 
     for (var video of Array.from(videoElements)) {
       if (video.hasAttribute(data.video) || video.hasAttribute('autoplay')) {
-        video.play();
+        video.play(); // Play the video if it is playing or has autoplay enabled
       }
     }
   },
@@ -290,28 +293,29 @@ var video = {
     var videoElements = document.getElementsByTagName(selectors.videoElem);
 
     for (var video of Array.from(videoElements)) {
-      video.pause();
+      video.pause(); // Pause the video if it is playing or has autoplay enabled
     }
   },
   init() {
-    var videoElements = document.getElementsByTagName(selectors.videoElem);
+    var videoElements = document.getElementsByTagName(selectors.videoElem); // Add the playing event listener to all video elements
 
     for (var video of Array.from(videoElements)) {
-      video.addEventListener('playing', playing);
+      video.addEventListener('playing', playing); /// Set the video to playing when it starts
     }
   },
-};
+}; // Video attributes and functions to inject upon
 
-video.init();
+video.init(); // Initialize the video event listeners
 
 var showNotification = (notice) => {
   var notificationElem = document.createElement('div'),
-    currentNotification = document.getElementById(selectors.notificationId);
+    currentNotification = document.getElementById(selectors.notificationId); // Remove the current notification if it exists
 
   if (currentNotification != null) {
     currentNotification.remove();
   }
 
+  // Create the notification element and append it to the body
   notificationElem.id = selectors.notificationId;
   notificationElem.setAttribute('style', cssProps.notification);
   notificationElem.setAttribute('aria-live', 'polite');
@@ -320,6 +324,7 @@ var showNotification = (notice) => {
 
   document.body.appendChild(notificationElem);
 
+  // Set the notification text and position it
   window.setTimeout(() => {
     notificationElem.innerHTML = `${notice}`;
     notificationElem.style.marginLeft = `-${
@@ -331,7 +336,7 @@ var showNotification = (notice) => {
   window.setTimeout(() => {
     notificationElem.remove();
   }, 3000);
-};
+}; // Show a notification to the user when the animation is toggled
 
 var updateFrames = (fn, type) => {
   var frames = document.getElementsByTagName(selectors.iframeElem);
@@ -341,7 +346,7 @@ var updateFrames = (fn, type) => {
       fn(type === 'document' ? el.contentDocument : el.contentWindow);
     } catch (e) {}
   }
-};
+}; // Update the animation for all iframes
 
 ((window, document) => {
   let allowAnimation = null;
@@ -357,13 +362,13 @@ var updateFrames = (fn, type) => {
         localStorage.getItem(strings.localStorageItem) === 'true'
           ? true
           : false;
-      toggleAnimation();
+      toggleAnimation(); // Toggle the animation based on the localStorage value
     }
 
     if (!chrome.runtime.onMessage.hasListener(clickListener)) {
       chrome.runtime.onMessage.addListener(clickListener);
-    }
-  };
+    } // Add the click listener if it doesn't exist
+  }; 
 
   var clickListener = (request) => {
     if (request[strings.clickIconRequest]) {
@@ -374,42 +379,43 @@ var updateFrames = (fn, type) => {
       }
     }
 
-    chrome.runtime.onMessage.removeListener(clickListener);
+    chrome.runtime.onMessage.removeListener(clickListener); // Remove the click listener
   };
 
   var toggleAnimation = () => {
     if (allowAnimation) {
-      backgroundImage.resume(document);
-      updateFrames(backgroundImage.resume, 'document');
 
-      css.resume(document);
-      updateFrames(css.resume, 'document');
+      backgroundImage.resume(document); 
+      updateFrames(backgroundImage.resume, 'document'); // Update the animation for all iframes
 
-      image.resume(document);
-      updateFrames(image.resume, 'document');
+      css.resume(document); 
+      updateFrames(css.resume, 'document'); /// Update the animation for all css elements
 
+      image.resume(document)
+      updateFrames(image.resume, 'document'); // Update the animation for all image elements
+ 
       svg.resume(document);
-      updateFrames(svg.resume, 'document');
+      updateFrames(svg.resume, 'document'); // Update the animation for all svg elements
 
       video.resume(document);
-      updateFrames(video.resume, 'document');
+      updateFrames(video.resume, 'document'); // Update the animation for all video elements
     } else {
       backgroundImage.pause(document, window);
-      updateFrames(backgroundImage.pause, 'document');
+      updateFrames(backgroundImage.pause, 'document'); // Pause the animation for all iframes
 
       css.pause(document);
-      updateFrames(css.pause, 'document');
+      updateFrames(css.pause, 'document'); // Pause the animation for all css elements
 
       image.pause(document, window);
-      updateFrames(image.pause, 'document');
+      updateFrames(image.pause, 'document'); // Pause the animation for all image elements
 
       svg.pause(document);
-      updateFrames(svg.pause, 'document');
+      updateFrames(svg.pause, 'document'); // Pause the animation for all svg elements
 
       video.pause(document);
-      updateFrames(video.pause, 'document');
+      updateFrames(video.pause, 'document'); // Pause the animation for all video elements
     }
   };
 
   init();
-})(window, document);
+})(window, document); // Initialize the extension
