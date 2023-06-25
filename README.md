@@ -63,7 +63,7 @@ The project can be scaled to fulfill huge possibilities. The current scalable pa
 - Generous line spacing / leading.
 - Avoiding contrast and small font size.
 
-#### Aspect Ration Adding game
+#### Aspect Ratio
 - A screen size ranging between 19 and 22 inches is  helpful for a person with a vestibular disorder who writes and edits documents.
 
 ## 🔨 Setup Guide
