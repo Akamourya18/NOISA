@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "NOISA",
+  "author": "Chinmay and Akash",
+  "version": "0.0.1",
+  "description": "NOISA - NO Invasive Site Animations. Enjoy a distraction free browsing experience with NOISA.",
+  "icons": {
+    "16": "icons/resume16.png",
+    "24": "icons/resume24.png",
+    "32": "icons/resume32.png",
+    "64": "icons/resume64.png",
+    "128": "icons/resume128.png"
+  },
+  "permissions": ["activeTab", "tabs", "notifications", "*://*/*"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/resume16.png",
+      "24": "icons/resume24.png",
+      "32": "icons/resume32.png",
+      "64": "icons/resume64.png",
+      "128": "icons/resume128.png"
+    },
+    "default_title": "NOISA"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["togglific.js"]
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
