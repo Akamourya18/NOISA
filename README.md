@@ -1,10 +1,13 @@
+<div align="center">
 
+<img width="100%" height="600px" alt="NOISA" src="https://github.com/chinmaychahar/NOISA/assets/56752925/100d90b0-578c-44e4-8c2e-b369b6b01cda">
 
+    
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chinmaychahar/NOISA?logo=github&style=for-the-badge)](https://github.com/chinmaychahar/) 
 [![GitHub issues](https://img.shields.io/github/issues/chinmaychahar/NOISA?style=for-the-badge)](https://GitHub.com/chinmaychahar/NOISA/issues/)
 [![Languages](https://img.shields.io/github/languages/count/chinmaychahar/NOISA?style=for-the-badge)](https://github.com/chinmaychahar/NOISA)
 
-
+**WaffleHacks 2023 Submission** 🧇 
 </div>
 
 ## Table of Contents
@@ -19,17 +22,17 @@
     
 ## 💙 Introduction
 ### NOISA
-NOISA stands for No Invasive Site Animations
+NOISA stands for No Invasive Site Animations. It is a browser extension developed for people with photosensitive epilepsy and vestibular disorders, for making web surfing accessible and inclusive! 
 
 ### What are Vestibular Disorders?
 Any disease, damage, or injury to the vestibular system—the system around our inner ear and brain that processes sensory information involved in controlling balance and eye movements—falls under the umbrella of a vestibular disorder.
 
 ## 💡 Problem it solves
 Websites contain potential triggering animations and features for people suffering from vestibular disorders. With a purposeful regulation over motions and animations, the user takes control of how to render the content, making web surfing more accessible.
+
 A user will have control over the following aspects:
 
-
-<img width="423" alt="image" src="https://github.com/chinmaychahar/NOISA/assets/71608554/c39cc851-b9f2-4f74-9065-9193cc2939fb">
+<img width="423" alt="image" src="https://github.com/chinmaychahar/NOISA/assets/56752925/1489eff3-5e95-4ff9-995e-5d1aa8764635">
 
 
 ## 📍 Tech Stack
@@ -44,12 +47,13 @@ A user will have control over the following aspects:
     <td>After NOISA Activation</td>
    </tr>
   <tr>
-    <td><img width="751" alt="image" src="https://github.com/chinmaychahar/NOISA/assets/71608554/53885581-f25b-4d1b-bfa5-ec3c097d5d71">
+    <td><img width="751" alt="image" src="https://github.com/chinmaychahar/NOISA/assets/56752925/10c80705-136a-4717-905d-4b7b5ab673ca">
 </td>
-    <td><img width="751" alt="image" src="https://github.com/chinmaychahar/NOISA/assets/71608554/364ff6f3-2f6a-488c-86c1-c21199efaf07">
+    <td><img width="751" alt="image" src="https://github.com/chinmaychahar/NOISA/assets/56752925/66eed98d-0492-4365-91ea-3f0e1ae818df">
 </td>
   </tr>
 </table>
+
 
 ## 🌺 Scalability
 
@@ -138,6 +142,6 @@ git push -u origin <your_branch_name>
 
 ## 📜 License
 
-[GNU General Public License v3.0](https://github.com/chinmaychahar/NOISA/blob/main/LICENSE.md)
+[MIT License](https://github.com/chinmaychahar/NOISA/blob/main/LICENSE.md)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
