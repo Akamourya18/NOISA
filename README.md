@@ -1,13 +1,10 @@
 <div align="center">
-
-<img width="100%" height="600px" alt="NOISA" src="https://github.com/chinmaychahar/NOISA/assets/56752925/100d90b0-578c-44e4-8c2e-b369b6b01cda">
-
     
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chinmaychahar/NOISA?logo=github&style=for-the-badge)](https://github.com/chinmaychahar/) 
 [![GitHub issues](https://img.shields.io/github/issues/chinmaychahar/NOISA?style=for-the-badge)](https://GitHub.com/chinmaychahar/NOISA/issues/)
 [![Languages](https://img.shields.io/github/languages/count/chinmaychahar/NOISA?style=for-the-badge)](https://github.com/chinmaychahar/NOISA)
 
-**WaffleHacks 2023 Submission** 🧇 
+**Honourable Mention @ WaffleHacks 2023** 🧇 
 </div>
 
 ## Table of Contents
